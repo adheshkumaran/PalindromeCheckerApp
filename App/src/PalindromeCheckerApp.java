@@ -1,4 +1,7 @@
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
+
 public class PalindromeCheckerApp {
 
 /**
@@ -9,29 +12,38 @@ public class PalindromeCheckerApp {
  */
 public static void main(String[] args) {
 
-    // Declare and initialize input string
-    String input = "noon";
+            // Define input string
+            String input = "civic";
 
-    // Create stack
-    Stack<Character> stack = new Stack<>();
+            // Create Queue (FIFO)
+            Queue<Character> queue = new LinkedList<>();
 
-    // Push characters into stack
-    for (char c : input.toCharArray()) {
-        stack.push(c);
-    }
+            // Create Stack (LIFO)
+            Stack<Character> stack = new Stack<>();
 
-    boolean isPalindrome = true;
+            // Insert characters into both queue and stack
+            for (char c : input.toCharArray()) {
+                queue.add(c);     // enqueue
+                stack.push(c);    // push
+            }
 
-    // Pop and compare
-    for (char c : input.toCharArray()) {
+            // Flag to track palindrome
+            boolean isPalindrome = true;
 
-        if (c != stack.pop()) {
-            isPalindrome = false;
-            break;
+            // Compare dequeue vs pop
+            while (!queue.isEmpty()) {
+
+                char fromQueue = queue.remove();  // dequeue
+                char fromStack = stack.pop();     // pop
+
+                if (fromQueue != fromStack) {
+                    isPalindrome = false;
+                    break;
+                }
+            }
+
+            // Print result
+            System.out.println("Input : " + input);
+            System.out.println("Is Palindrome? : " + isPalindrome);
         }
     }
-
-    System.out.println("Input : " + input);
-    System.out.println("Is Palindrome? : " + isPalindrome);
-}
-}
